@@ -2,13 +2,13 @@
 
 :root {
     --iq-white: #ffffff;
-    --iq-black: #000000;
+    --iq-black: #000;
     --iq-title-text: #222428;
     --iq-body-text: #4a525f;
     --iq-body-header: #fbfcff;
     --iq-body-bg: #ffffff;
     --iq-menu-bg: #2b3241;
-    --iq-primary: #6a5acd;
+    --iq-primary: #7c6ae7;
     --iq-secondary: #a09e9e;
     --iq-success: #1ee2ac;
     --iq-warning: #ffdd31;
@@ -57,6 +57,7 @@
     --iq-width-sidebar: 250px;
     --iq-height-header: 74px;
     --iq-alpha-bg: rgba(0, 0, 0, 0.05);
+    --iq-sidebar-menu-item-active-bg: #354057;
 }
 
 * {
@@ -68,4 +69,34 @@
 body {
     font-family: 'Poppins', sans-serif !important;
     overflow: hidden;
+}
+
+.text--primary {
+    transition: 0.3s;
+    color: var(--iq-white);
+    &:hover {
+        color: var(--iq-primary);
+    }
+}
+
+.square_55 {
+    width: 55px;
+    height: 55px;
+}
+
+img {
+    object-fit: contain;
+    object-position: center;
+}
+
+.custom-tooltip .tippy-content {
+    background-color: black;
+    border-radius: 4px;
+    &::after {
+        background-color: black;
+    }
+}
+
+.custom-tooltip .tippy-arrow {
+    color: black;
 }

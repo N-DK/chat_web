@@ -1,0 +1,14 @@
+.wrapper {
+    background-color: var(--iq-menu-bg);
+    color: var(--iq-white);
+}
+
+.avatar,
+.logo {
+    width: 45px;
+}
+
+.active {
+    background-color: var(--iq-sidebar-menu-item-active-bg);
+    color: var(--iq-primary) !important;
+}
