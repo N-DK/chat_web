@@ -1,0 +1,50 @@
+.wrapper {
+    background-color: var(--iq-primary-bg);
+    height: 100%;
+}
+
+.plus {
+    position: relative;
+    &::after {
+        content: '\2b';
+        position: absolute;
+        font-family: 'Font Awesome 5 Free'; /* Font family của Font Awesome */
+        font-weight: 900;
+        top: 1px;
+        left: 17px;
+        font-size: 13px;
+    }
+}
+
+.search {
+    position: relative;
+    input {
+        outline: none;
+        background-color: transparent;
+        border: none;
+        border-radius: 99999px;
+        padding-left: 40px;
+        color: var(--iq-white);
+        width: 100%;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: var(--ip-second-bg);
+
+        &::-webkit-input-placeholder {
+            color: var(--iq-text-second);
+        }
+    }
+
+    i {
+        color: var(--iq-text-second);
+    }
+}
+
+.container__message {
+    overflow-y: overlay;
+    max-height: calc(100vh - 150px);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

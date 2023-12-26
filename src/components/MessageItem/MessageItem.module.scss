@@ -1,0 +1,26 @@
+.wrapper {
+    figure {
+        width: 40px;
+        height: 40px;
+    }
+
+    .notice {
+        font-size: 13px;
+    }
+
+    .time {
+        color: #60656d;
+    }
+}
+
+.active {
+    background-color: #1c2946 !important;
+}
+
+.received {
+    color: var(--iq-white);
+}
+
+.seen {
+    color: #60656d;
+}

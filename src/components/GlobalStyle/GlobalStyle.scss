@@ -57,7 +57,10 @@
     --iq-width-sidebar: 250px;
     --iq-height-header: 74px;
     --iq-alpha-bg: rgba(0, 0, 0, 0.05);
+    --iq-primary-bg: #111726;
     --iq-sidebar-menu-item-active-bg: #354057;
+    --ip-second-bg: #1d2331;
+    --iq-text-second: #494f5a;
 }
 
 * {
@@ -71,6 +74,13 @@ body {
     overflow: hidden;
 }
 
+.bg--hover--message-item {
+    transition: 0.3s;
+    &:hover {
+        background-color: var(--ip-second-bg);
+    }
+}
+
 .text--primary {
     transition: 0.3s;
     color: var(--iq-white);
@@ -79,9 +89,32 @@ body {
     }
 }
 
+.bg--primary {
+    background-color: var(--iq-primary);
+}
+
+.icon__border_circle {
+    border: 1px solid #252b3a;
+    color: #494f5a;
+}
+
+.square_20 {
+    width: 20px;
+    height: 20px;
+}
+
+.square_40 {
+    width: 40px;
+    height: 40px;
+}
+
 .square_55 {
     width: 55px;
     height: 55px;
+}
+
+.flex-1 {
+    flex: 1;
 }
 
 img {

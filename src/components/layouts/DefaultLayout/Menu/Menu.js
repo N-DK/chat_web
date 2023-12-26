@@ -54,7 +54,7 @@ function Menu() {
 
     return (
         <div className={`${cx('wrapper')}`}>
-            <div className="p-3 h-100 pb-2">
+            <div className="p-2 pt-3 h-100 pb-2">
                 <div className="d-flex h-100 flex-column justify-content-between">
                     <ul className=" list-unstyled">
                         <Link className="d-flex align-items-center justify-content-center">
