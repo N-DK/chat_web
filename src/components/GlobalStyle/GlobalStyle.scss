@@ -89,6 +89,10 @@ body {
     }
 }
 
+.bg-second {
+    background-color: var(--ip-second-bg);
+}
+
 .bg--primary {
     background-color: var(--iq-primary);
 }
@@ -103,6 +107,21 @@ body {
     height: 20px;
 }
 
+.square_80 {
+    width: 80px;
+    height: 80px;
+}
+
+.square_36 {
+    width: 36px;
+    height: 36px;
+}
+
+.square_15 {
+    width: 15px;
+    height: 15px;
+}
+
 .square_40 {
     width: 40px;
     height: 40px;
@@ -115,6 +134,10 @@ body {
 
 .flex-1 {
     flex: 1;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 img {
