@@ -45,12 +45,13 @@ function Menu() {
     };
 
     useEffect(() => {
-        if (!slug || slug === 'chatroom') {
+        const path = window.location.pathname;
+        if (path === '/' || path.includes('chatroom')) {
             handleActive('/chatroom');
-        } else {
-            handleActive(`/${slug}`);
+        } else if (path.includes('profile') || path.includes('groups')) {
+            handleActive(path);
         }
-    }, [slug]);
+    }, [window.location.pathname]);
 
     return (
         <div className={`${cx('wrapper')}`}>

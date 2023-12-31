@@ -1,0 +1,15 @@
+.wrapper {
+    background-color: var(--iq-primary-bg);
+    height: 100%;
+}
+
+.title__info {
+    display: inline-block;
+    width: 140px;
+}
+
+.avatar {
+    img {
+        object-fit: cover;
+    }
+}
