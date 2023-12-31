@@ -16,6 +16,7 @@ import {
     faPhone,
     faThumbsUp,
     faVideo,
+    faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import Message from '~/components/Message';
 import { useEffect, useRef, useState } from 'react';
@@ -29,6 +30,7 @@ function ChatRoom() {
     const [isOnFile, setIsOnFile] = useState(false);
     const [isLink, setIsLink] = useState(false);
     const [isOnInfo, setIsOnInfo] = useState(true);
+    const [reply, setReply] = useState();
     const refFile = useRef();
     const refImage = useRef();
     const refLink = useRef();
@@ -63,7 +65,7 @@ function ChatRoom() {
         }
     }, [isOnImage]);
 
-    function LinkPreviewer({ loading, preview }) {
+    const LinkPreviewer = ({ loading, preview }) => {
         return (
             <div className={`${cx('preview_link')}`}>
                 <div className=" d-flex align-items-center">
@@ -103,7 +105,15 @@ function ChatRoom() {
                 </div>
             </div>
         );
-    }
+    };
+
+    const handleReply = (host, content) => {
+        setReply({ host, content });
+    };
+
+    const handleCancelReply = () => {
+        setReply();
+    };
 
     return (
         <div className={`${cx('wrapper')}`}>
@@ -180,9 +190,11 @@ function ChatRoom() {
                                     )}`}
                                 >
                                     <Message
+                                        handleReply={handleReply}
                                         content={['hi', "What's your name"]}
                                     />
                                     <Message
+                                        handleReply={handleReply}
                                         content={[
                                             'Hello',
                                             "My name's Khoa",
@@ -190,84 +202,155 @@ function ChatRoom() {
                                         ]}
                                         host
                                     />
-                                    <Message content={['Oke']} />
-                                    <Message content={['Bye']} host />
-                                    <Message content={['Bye', 'See then']} />
-                                    <Message content={['Oke']} host />
                                     <Message
+                                        handleReply={handleReply}
+                                        content={['Oke']}
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['Bye']}
+                                        host
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['Bye', 'See then']}
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['Oke']}
+                                        host
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
                                         content={[
                                             'https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg',
                                         ]}
                                         host
                                     />
                                     <Message
+                                        handleReply={handleReply}
                                         content={['lesson_1.docx']}
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['My name is Khoa']}
+                                        reply={{
+                                            user: 'Dang Khoa',
+                                            content: "What's your name",
+                                        }}
                                         host
-                                        seen
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['How do you feel?']}
+                                        reply={{
+                                            user: 'Dang Khoa',
+                                            content:
+                                                'https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg',
+                                        }}
+                                        host
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['How do you feel?']}
+                                        reply={{
+                                            user: 'Dang Khoa',
+                                            content: 'lesson_1.docx',
+                                        }}
+                                        host
+                                    />
+                                    <Message
+                                        handleReply={handleReply}
+                                        content={['Oke']}
                                     />
                                 </div>
                             </div>
                             <div className={`${cx('footer')}`}>
-                                <div className="p-3 d-flex align-items-center h-100">
-                                    <div className="d-flex align-items-center w-100">
-                                        <div className="me-3">
-                                            <button className="border-0 bg-transparent text--primary me-3">
-                                                <i className="fs-5">
-                                                    <FontAwesomeIcon
-                                                        icon={faPaperclip}
-                                                    />
-                                                </i>
-                                            </button>
-                                            <button className="border-0 bg-transparent text--primary me-3">
-                                                <i className="fs-5">
-                                                    <FontAwesomeIcon
-                                                        icon={faMicrophone}
-                                                    />
-                                                </i>
-                                            </button>
-                                            <button className="border-0 bg-transparent text--primary">
-                                                <i className="fs-5">
-                                                    <FontAwesomeIcon
-                                                        icon={faImage}
-                                                    />
-                                                </i>
+                                <div className="p-3 d-flex flex-column">
+                                    {reply && (
+                                        <div className="mb-2 position-relative">
+                                            <h6 className="text-white fw-semibold mb-1">
+                                                Replying to{' '}
+                                                {reply.host ? 'yourself' : ''}
+                                            </h6>
+                                            <span className="text-white opacity-50 fs-13">
+                                                {reply.content}
+                                            </span>
+                                            <button
+                                                onClick={handleCancelReply}
+                                                className=" border-0  bg-transparent position-absolute top-0 end-0"
+                                            >
+                                                <span>
+                                                    <i>
+                                                        <FontAwesomeIcon
+                                                            icon={faXmark}
+                                                        />
+                                                    </i>
+                                                </span>
                                             </button>
                                         </div>
-                                        <div
-                                            className={`flex-1 d-flex align-items-center position-relative ${cx(
-                                                '',
-                                            )}`}
-                                        >
+                                    )}
+                                    <div className=" d-flex align-items-center ">
+                                        <div className="d-flex align-items-center w-100">
+                                            <div className="me-3">
+                                                <button className="border-0 bg-transparent text--primary me-3">
+                                                    <i className="fs-5">
+                                                        <FontAwesomeIcon
+                                                            icon={faPaperclip}
+                                                        />
+                                                    </i>
+                                                </button>
+                                                <button className="border-0 bg-transparent text--primary me-3">
+                                                    <i className="fs-5">
+                                                        <FontAwesomeIcon
+                                                            icon={faMicrophone}
+                                                        />
+                                                    </i>
+                                                </button>
+                                                <button className="border-0 bg-transparent text--primary">
+                                                    <i className="fs-5">
+                                                        <FontAwesomeIcon
+                                                            icon={faImage}
+                                                        />
+                                                    </i>
+                                                </button>
+                                            </div>
                                             <div
-                                                contentEditable={true}
-                                                wrap="soft"
-                                                className={`w-100 ${cx(
-                                                    'message__content',
+                                                className={`flex-1 d-flex align-items-center position-relative ${cx(
+                                                    '',
                                                 )}`}
-                                                type="text"
-                                                placeholder="Enter message..."
-                                            ></div>
-                                            <button className="border-0 bg-transparent text--primary position-absolute end-0 me-2 top-50 translate-middle-y">
+                                            >
+                                                <div
+                                                    contentEditable={true}
+                                                    wrap="soft"
+                                                    className={`w-100 ${cx(
+                                                        'message__content',
+                                                    )}`}
+                                                    type="text"
+                                                    placeholder="Enter message..."
+                                                ></div>
+                                                <button className="border-0 bg-transparent text--primary position-absolute end-0 me-2 top-50 translate-middle-y">
+                                                    <i className="fs-5">
+                                                        <FontAwesomeIcon
+                                                            icon={faFaceSmile}
+                                                        />
+                                                    </i>
+                                                </button>
+                                            </div>
+                                            <button className="border-0 bg-transparent text--primary ms-2">
                                                 <i className="fs-5">
                                                     <FontAwesomeIcon
-                                                        icon={faFaceSmile}
+                                                        icon={faThumbsUp}
                                                     />
                                                 </i>
                                             </button>
                                         </div>
-                                        <button className="border-0 bg-transparent text--primary ms-2">
-                                            <i className="fs-5">
-                                                <FontAwesomeIcon
-                                                    icon={faThumbsUp}
-                                                />
-                                            </i>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div style={{ transition: '0.3s' }} className={`col-4`}>
+                    <div className={`col-4`}>
                         <div
                             className={`${cx(
                                 'info_conver',

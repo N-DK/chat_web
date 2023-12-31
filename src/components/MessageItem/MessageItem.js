@@ -21,7 +21,7 @@ const emojis = [
     'https://static.xx.fbcdn.net/images/emoji.php/v9/tf/1.5/32/1f44d.png',
 ];
 
-function MessageItem({ host, content }) {
+function MessageItem({ host, content, handleReply, mess }) {
     const [visible, setVisible] = useState(false);
     const [emoji, setEmoji] = useState();
     const show = () => setVisible(true);
@@ -94,7 +94,10 @@ function MessageItem({ host, content }) {
                             </Tippy>
                         </HeadlessTippy>
                         <Tippy content="Reply">
-                            <i className="pointer pe-2 ps-2">
+                            <i
+                                onClick={() => handleReply(host, mess)}
+                                className="pointer pe-2 ps-2"
+                            >
                                 <FontAwesomeIcon icon={faReply} />
                             </i>
                         </Tippy>

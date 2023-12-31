@@ -1,0 +1,15 @@
+.wrapper {
+    background-color: #5a4cc4;
+}
+
+.container {
+    border-left: 3px solid #796bdf;
+    padding-left: 10px;
+}
+
+.message {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

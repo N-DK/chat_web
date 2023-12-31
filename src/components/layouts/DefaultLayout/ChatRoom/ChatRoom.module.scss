@@ -50,7 +50,7 @@
 
 .footer {
     border-top: 1px solid #1d2331;
-    height: 80px;
+    max-height: 150px;
     background-color: var(--iq-primary-bg);
 
     .message__content {
@@ -70,6 +70,10 @@
         &::-webkit-scrollbar {
             display: none;
         }
+    }
+
+    span {
+        color: #60656d;
     }
 }
 

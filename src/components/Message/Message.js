@@ -3,10 +3,11 @@ import styles from './Message.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MessageItem from '../MessageItem';
+import Reply from '../Reply';
 
 const cx = classNames.bind(styles);
 
-function Message({ host, content, received, seen }) {
+function Message({ host, content, received, seen, handleReply, reply }) {
     return (
         <div className={cx('wrapper')}>
             <div className="d-flex align-items-start">
@@ -75,6 +76,7 @@ function Message({ host, content, received, seen }) {
                                             'content',
                                         )}`}
                                     >
+                                        {reply && <Reply data={reply} />}
                                         {mess}
                                         <p
                                             className={`mb-0 mt-2 ${cx(
@@ -90,7 +92,9 @@ function Message({ host, content, received, seen }) {
                                 <MessageItem
                                     key={index}
                                     host={host}
+                                    handleReply={handleReply}
                                     content={Component}
+                                    mess={mess}
                                 />
                             );
                         })}
