@@ -72,6 +72,7 @@
 body {
     font-family: 'Poppins', sans-serif !important;
     overflow: hidden;
+    background-color: var(--iq-primary-bg);
 }
 
 .bg--hover--message-item {
@@ -87,6 +88,10 @@ body {
     &:hover {
         color: var(--iq-primary);
     }
+}
+
+.text--primary-hover {
+    color: var(--iq-primary);
 }
 
 .text--second {
@@ -109,6 +114,11 @@ body {
 .square_20 {
     width: 20px;
     height: 20px;
+}
+
+.square_32 {
+    width: 32px;
+    height: 32px;
 }
 
 .square_80 {

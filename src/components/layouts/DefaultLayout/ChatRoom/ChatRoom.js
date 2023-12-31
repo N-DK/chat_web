@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import {
     faBell,
     faCaretRight,
+    faCircleInfo,
     faCircleUser,
     faFaceSmile,
     faFile,
@@ -12,7 +13,9 @@ import {
     faMagnifyingGlass,
     faMicrophone,
     faPaperclip,
+    faPhone,
     faThumbsUp,
+    faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import Message from '~/components/Message';
 import { useEffect, useRef, useState } from 'react';
@@ -25,6 +28,7 @@ function ChatRoom() {
     const [isOnImage, setIsOnImage] = useState(false);
     const [isOnFile, setIsOnFile] = useState(false);
     const [isLink, setIsLink] = useState(false);
+    const [isOnInfo, setIsOnInfo] = useState(true);
     const refFile = useRef();
     const refImage = useRef();
     const refLink = useRef();
@@ -104,8 +108,11 @@ function ChatRoom() {
     return (
         <div className={`${cx('wrapper')}`}>
             <div>
-                <div className="row g-0">
-                    <div className={`col-8`}>
+                <div className={`row g-0`}>
+                    <div
+                        style={{ transition: '0.3s' }}
+                        className={`col-${isOnInfo ? 8 : 12}`}
+                    >
                         <div className={`d-flex flex-column ${cx('room')}`}>
                             <div className={`${cx('header')}`}>
                                 <div className="p-3">
@@ -128,6 +135,40 @@ function ChatRoom() {
                                                 </h5>
                                                 <span>Active</span>
                                             </div>
+                                        </div>
+                                        <div className=" list-unstyled d-flex ">
+                                            <li className="text--primary pointer">
+                                                <i className="fs-5">
+                                                    <FontAwesomeIcon
+                                                        icon={faPhone}
+                                                    />
+                                                </i>
+                                            </li>
+                                            <li className="text--primary pointer me-4 ms-4">
+                                                <i className="fs-5">
+                                                    <FontAwesomeIcon
+                                                        icon={faVideo}
+                                                    />
+                                                </i>
+                                            </li>
+                                            <li
+                                                onClick={() =>
+                                                    setIsOnInfo((prev) => !prev)
+                                                }
+                                                className="text--primary pointer"
+                                            >
+                                                <i
+                                                    className={`fs-5 ${
+                                                        isOnInfo
+                                                            ? 'text--primary-hover'
+                                                            : ''
+                                                    }`}
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faCircleInfo}
+                                                    />
+                                                </i>
+                                            </li>
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +267,7 @@ function ChatRoom() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div style={{ transition: '0.3s' }} className={`col-4`}>
                         <div
                             className={`${cx(
                                 'info_conver',

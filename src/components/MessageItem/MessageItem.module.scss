@@ -1,26 +1,23 @@
-.wrapper {
-    figure {
-        width: 56px;
-        height: 56px;
-    }
+.action {
+    transition: 0.3s;
+    opacity: 0;
+    visibility: hidden;
+}
 
-    .notice {
-        font-size: 13px;
+.container {
+    &:hover {
+        .action {
+            opacity: 1;
+            visibility: visible;
+        }
     }
+}
 
-    .time {
-        color: #60656d;
-    }
+.emoji__container {
+    margin-bottom: 0px;
+    margin-right: -4px;
 }
 
 .active {
-    background-color: #1c2946 !important;
-}
-
-.received {
-    color: var(--iq-white);
-}
-
-.seen {
-    color: #60656d;
+    background-color: #3e4042;
 }

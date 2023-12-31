@@ -1,14 +1,8 @@
-import {
-    faEllipsisVertical,
-    faFile,
-    faReply,
-    faShareNodes,
-    faSmile,
-} from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
 import styles from './Message.module.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tippy from '@tippyjs/react';
+import MessageItem from '../MessageItem';
 
 const cx = classNames.bind(styles);
 
@@ -93,56 +87,11 @@ function Message({ host, content, received, seen }) {
                                 );
                             }
                             return (
-                                <div
+                                <MessageItem
                                     key={index}
-                                    className={`${cx(
-                                        'container',
-                                    )} w-100 d-flex ${
-                                        host
-                                            ? 'justify-content-end'
-                                            : 'justify-content-start'
-                                    }`}
-                                >
-                                    <div
-                                        style={{ width: 'max-content' }}
-                                        className=" position-relative"
-                                    >
-                                        {Component}
-                                        <div
-                                            className={`${
-                                                host ? ' flex-row-reverse' : ''
-                                            } d-flex text-white position-absolute top-50 translate-middle-y ${
-                                                host
-                                                    ? 'end-100 me-2'
-                                                    : 'start-100 ms-2'
-                                            } ${cx('action')}`}
-                                        >
-                                            <Tippy content="React">
-                                                <i className="pointer pe-1 ps-1">
-                                                    <FontAwesomeIcon
-                                                        icon={faSmile}
-                                                    />
-                                                </i>
-                                            </Tippy>
-                                            <Tippy content="Reply">
-                                                <i className="pointer pe-1 ps-1">
-                                                    <FontAwesomeIcon
-                                                        icon={faReply}
-                                                    />
-                                                </i>
-                                            </Tippy>
-                                            <Tippy content="More">
-                                                <i className="pointer pe-1 ps-1">
-                                                    <FontAwesomeIcon
-                                                        icon={
-                                                            faEllipsisVertical
-                                                        }
-                                                    />
-                                                </i>
-                                            </Tippy>
-                                        </div>
-                                    </div>
-                                </div>
+                                    host={host}
+                                    content={Component}
+                                />
                             );
                         })}
                         {seen && (

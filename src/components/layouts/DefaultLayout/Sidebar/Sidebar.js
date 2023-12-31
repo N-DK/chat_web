@@ -6,7 +6,7 @@ import {
     faUserGroup,
     faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import MessageItem from '~/components/MessageItem';
+import Messenger from '~/components/Messenger';
 
 const cx = classNames.bind(styles);
 
@@ -44,13 +44,13 @@ function Sidebar() {
                     </div>
                 </div>
                 <div className={`mt-3 ${cx('container__message')}`}>
-                    <MessageItem active={true} />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
+                    <Messenger active={true} />
+                    <Messenger />
+                    <Messenger />
+                    <Messenger />
+                    <Messenger />
+                    <Messenger />
+                    <Messenger />
                 </div>
             </div>
         </div>
