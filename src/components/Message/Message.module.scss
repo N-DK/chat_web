@@ -8,6 +8,21 @@
     width: max-content;
 }
 
+.action {
+    transition: 0.3s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.container {
+    &:hover {
+        .action {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
 .time {
     font-size: 13px;
     color: #fff;

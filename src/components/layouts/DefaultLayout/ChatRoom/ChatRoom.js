@@ -15,10 +15,92 @@ import {
     faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import Message from '~/components/Message';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import LinkPreview from '@ashwamegh/react-link-preview';
 
 const cx = classNames.bind(styles);
 
 function ChatRoom() {
+    const [isOnImage, setIsOnImage] = useState(false);
+    const [isOnFile, setIsOnFile] = useState(false);
+    const [isLink, setIsLink] = useState(false);
+    const refFile = useRef();
+    const refImage = useRef();
+    const refLink = useRef();
+
+    useEffect(() => {
+        if (refFile.current) {
+            if (isOnFile) {
+                refFile.current.style.height = `${3 * 62.6 + 56}px`;
+            } else {
+                refFile.current.style.height = `${0}px`;
+            }
+        }
+    }, [isOnFile]);
+
+    useEffect(() => {
+        if (refLink.current) {
+            if (isLink) {
+                refLink.current.style.height = `${3 * 71 + 56}px`;
+            } else {
+                refLink.current.style.height = `${0}px`;
+            }
+        }
+    }, [isLink]);
+
+    useEffect(() => {
+        if (refImage.current) {
+            if (isOnImage) {
+                refImage.current.style.height = `${3 * 62 + 56}px`;
+            } else {
+                refImage.current.style.height = `${0}px`;
+            }
+        }
+    }, [isOnImage]);
+
+    function LinkPreviewer({ loading, preview }) {
+        return (
+            <div className={`${cx('preview_link')}`}>
+                <div className=" d-flex align-items-center">
+                    <figure
+                        className={`square_55 mb-0 ${cx(
+                            `${loading ? 'loading' : ''}`,
+                            'figure',
+                        )}`}
+                    >
+                        {!loading && (
+                            <img
+                                style={{ objectFit: 'cover' }}
+                                src={preview.img}
+                                alt=""
+                                className="w-100 h-100 rounded-2"
+                            />
+                        )}
+                    </figure>
+                    <div className="ms-2 overflow-hidden flex-1">
+                        <h6
+                            className={`text-white ${cx(
+                                `${loading ? 'loading' : ''}`,
+                                'title',
+                            )} mb-1`}
+                        >
+                            {preview.title}
+                        </h6>
+                        <span
+                            className={`${cx(
+                                `${loading ? 'loading' : ''}`,
+                                'domain',
+                            )}`}
+                        >
+                            {preview.domain}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={`${cx('wrapper')}`}>
             <div>
@@ -145,7 +227,11 @@ function ChatRoom() {
                         </div>
                     </div>
                     <div className="col-4">
-                        <div className={`${cx('info_conver')} pt-3`}>
+                        <div
+                            className={`${cx(
+                                'info_conver',
+                            )} pt-3 overflow-auto`}
+                        >
                             <div className="p-2">
                                 <div className="text-center d-flex flex-column align-items-center">
                                     <div className={`${cx('avatar')}`}>
@@ -197,56 +283,271 @@ function ChatRoom() {
                                     </div>
                                 </div>
                                 <div className="mt-5">
-                                    <div className="d-flex align-items-center justify-content-between p-2 rounded-2 bg--hover--message-item pointer">
-                                        <h5 className="mb-0 d-flex align-items-center">
-                                            <i className={`${cx('text')}`}>
+                                    <div>
+                                        <div
+                                            onClick={() =>
+                                                setIsOnImage((prev) => !prev)
+                                            }
+                                            className={`d-flex align-items-center justify-content-between p-2 rounded-2 bg--hover--message-item pointer ${cx(
+                                                'image',
+                                                `${isOnImage ? 'on' : ''}`,
+                                            )}`}
+                                        >
+                                            <h5 className="mb-0 d-flex align-items-center">
+                                                <i className={`${cx('text')}`}>
+                                                    <FontAwesomeIcon
+                                                        icon={faImage}
+                                                    />
+                                                </i>
+                                                <span className="text-white ms-3">
+                                                    Image/Video
+                                                </span>
+                                            </h5>
+                                            <i
+                                                className={`text--primary ${cx(
+                                                    'more',
+                                                )}`}
+                                            >
                                                 <FontAwesomeIcon
-                                                    icon={faImage}
+                                                    icon={faCaretRight}
                                                 />
                                             </i>
-                                            <span className="text-white ms-3">
-                                                Image/Video
-                                            </span>
-                                        </h5>
-                                        <i className="text--primary">
-                                            <FontAwesomeIcon
-                                                icon={faCaretRight}
-                                            />
-                                        </i>
+                                        </div>
+                                        <div
+                                            ref={refImage}
+                                            className={`${cx(
+                                                'image__container',
+                                                `${isOnImage ? '' : ''}`,
+                                            )}`}
+                                        >
+                                            <div className="p-2 row g-2">
+                                                <div className="col-3">
+                                                    <figure className="w-100 mb-1 rounded-1 overflow-hidden">
+                                                        <img
+                                                            src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                            alt=""
+                                                            className="w-100"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <div className="col-3">
+                                                    <figure className="w-100 mb-1 rounded-1 overflow-hidden">
+                                                        <img
+                                                            src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                            alt=""
+                                                            className="w-100"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <div className="col-3">
+                                                    <figure className="w-100 mb-1 rounded-1 overflow-hidden">
+                                                        <img
+                                                            src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                            alt=""
+                                                            className="w-100"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <div className="col-3">
+                                                    <figure className="w-100 mb-1 rounded-1 overflow-hidden">
+                                                        <img
+                                                            src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                            alt=""
+                                                            className="w-100"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <div className="col-3">
+                                                    <figure className="w-100 mb-1 rounded-1 overflow-hidden">
+                                                        <img
+                                                            src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                            alt=""
+                                                            className="w-100"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                                <div className="col-3">
+                                                    <figure className="w-100 mb-1 rounded-1 overflow-hidden">
+                                                        <img
+                                                            src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                            alt=""
+                                                            className="w-100"
+                                                        />
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                            <button className="w-100 rounded-1 p-2 mt-2 border-0 bg--primary text-white">
+                                                More
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="d-flex align-items-center justify-content-between p-2 rounded-2 bg--hover--message-item pointer">
-                                        <h5 className="mb-0 d-flex align-items-center">
-                                            <i className={`${cx('text')}`}>
+                                    <div>
+                                        <div
+                                            onClick={() =>
+                                                setIsOnFile((prev) => !prev)
+                                            }
+                                            className={`d-flex align-items-center justify-content-between p-2 rounded-2 bg--hover--message-item pointer ${cx(
+                                                `${isOnFile ? 'on' : ''}`,
+                                            )}`}
+                                        >
+                                            <h5 className="mb-0 d-flex align-items-center">
+                                                <i className={`${cx('text')}`}>
+                                                    <FontAwesomeIcon
+                                                        icon={faFile}
+                                                    />
+                                                </i>
+                                                <span className="text-white ms-3">
+                                                    File
+                                                </span>
+                                            </h5>
+                                            <i
+                                                className={`text--primary ${cx(
+                                                    'more',
+                                                )}`}
+                                            >
                                                 <FontAwesomeIcon
-                                                    icon={faFile}
+                                                    icon={faCaretRight}
                                                 />
                                             </i>
-                                            <span className="text-white ms-3">
-                                                File
-                                            </span>
-                                        </h5>
-                                        <i className="text--primary">
-                                            <FontAwesomeIcon
-                                                icon={faCaretRight}
-                                            />
-                                        </i>
+                                        </div>
+                                        <div>
+                                            <div
+                                                ref={refFile}
+                                                className={`${cx(
+                                                    'file__container',
+                                                    `${isOnFile ? '' : ''}`,
+                                                )}`}
+                                            >
+                                                <div>
+                                                    <Link
+                                                        download
+                                                        className=" d-flex align-items-center pb-2 pt-2 text-decoration-none "
+                                                    >
+                                                        <i className="square_40 rounded-1 d-flex align-items-center justify-content-center text-white bg-second">
+                                                            <FontAwesomeIcon
+                                                                icon={faFile}
+                                                            />
+                                                        </i>
+                                                        <div className="ms-3">
+                                                            <span className="d-block fw-semibold text-white">
+                                                                lesson_1.docx
+                                                            </span>
+                                                            <span className=" text-uppercase">
+                                                                13.02 KB
+                                                            </span>
+                                                        </div>
+                                                    </Link>
+                                                    <Link
+                                                        download
+                                                        className=" d-flex align-items-center pb-2 pt-2 text-decoration-none "
+                                                    >
+                                                        <i className="square_40 rounded-1 d-flex align-items-center justify-content-center text-white bg-second">
+                                                            <FontAwesomeIcon
+                                                                icon={faFile}
+                                                            />
+                                                        </i>
+                                                        <div className="ms-3">
+                                                            <span className="d-block fw-semibold text-white">
+                                                                lesson_1.docx
+                                                            </span>
+                                                            <span className=" text-uppercase">
+                                                                13.02 KB
+                                                            </span>
+                                                        </div>
+                                                    </Link>
+                                                    <Link
+                                                        download
+                                                        className=" d-flex align-items-center pb-2 pt-2 text-decoration-none "
+                                                    >
+                                                        <i className="square_40 rounded-1 d-flex align-items-center justify-content-center text-white bg-second">
+                                                            <FontAwesomeIcon
+                                                                icon={faFile}
+                                                            />
+                                                        </i>
+                                                        <div className="ms-3">
+                                                            <span className="d-block fw-semibold text-white">
+                                                                lesson_1.docx
+                                                            </span>
+                                                            <span className=" text-uppercase">
+                                                                13.02 KB
+                                                            </span>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <button className="w-100 rounded-1 p-2 mt-2 border-0 bg--primary text-white">
+                                                    More
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="d-flex align-items-center justify-content-between p-2 rounded-2 bg--hover--message-item pointer">
-                                        <h5 className="mb-0 d-flex align-items-center">
-                                            <i className={`${cx('text')}`}>
+                                    <div>
+                                        <div
+                                            onClick={() =>
+                                                setIsLink((prev) => !prev)
+                                            }
+                                            className={`d-flex align-items-center justify-content-between p-2 rounded-2 bg--hover--message-item pointer ${cx(
+                                                `${isLink ? 'on' : ''}`,
+                                            )}`}
+                                        >
+                                            <h5 className="mb-0 d-flex align-items-center">
+                                                <i className={`${cx('text')}`}>
+                                                    <FontAwesomeIcon
+                                                        icon={faLink}
+                                                    />
+                                                </i>
+                                                <span className="text-white ms-3">
+                                                    Link
+                                                </span>
+                                            </h5>
+                                            <i
+                                                className={`text--primary ${cx(
+                                                    'more',
+                                                )}`}
+                                            >
                                                 <FontAwesomeIcon
-                                                    icon={faLink}
+                                                    icon={faCaretRight}
                                                 />
                                             </i>
-                                            <span className="text-white ms-3">
-                                                Link
-                                            </span>
-                                        </h5>
-                                        <i className="text--primary">
-                                            <FontAwesomeIcon
-                                                icon={faCaretRight}
-                                            />
-                                        </i>
+                                        </div>
+                                        <div
+                                            ref={refLink}
+                                            className={`${cx(
+                                                'link__container',
+                                            )}`}
+                                        >
+                                            <div>
+                                                <Link
+                                                    className=" text-decoration-none pt-2 pb-2 d-block"
+                                                    to="https://vt.tiktok.com/ZSNGbuhdC/"
+                                                >
+                                                    <LinkPreview
+                                                        url="https://vt.tiktok.com/ZSNGbuhdC/"
+                                                        render={LinkPreviewer}
+                                                    />
+                                                </Link>
+                                                <Link
+                                                    className=" text-decoration-none pt-2 pb-2 d-block"
+                                                    to="https://www.youtube.com/watch?v=dCNdTe1wDLM"
+                                                >
+                                                    <LinkPreview
+                                                        url="https://www.youtube.com/watch?v=dCNdTe1wDLM"
+                                                        render={LinkPreviewer}
+                                                    />
+                                                </Link>
+                                                <Link
+                                                    className=" text-decoration-none pt-2 pb-2 d-block"
+                                                    to="https://www.youtube.com/watch?v=RF6PvRkSLjU&t=555s"
+                                                >
+                                                    <LinkPreview
+                                                        url="https://www.youtube.com/watch?v=RF6PvRkSLjU&t=555s"
+                                                        render={LinkPreviewer}
+                                                    />
+                                                </Link>
+                                            </div>
+                                            <button className="w-100 rounded-1 p-2 mt-2 border-0 bg--primary text-white">
+                                                More
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
