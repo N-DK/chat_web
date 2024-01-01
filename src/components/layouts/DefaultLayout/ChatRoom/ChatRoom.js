@@ -31,6 +31,7 @@ function ChatRoom() {
     const [isLink, setIsLink] = useState(false);
     const [isOnInfo, setIsOnInfo] = useState(true);
     const [reply, setReply] = useState();
+    const chatBody = useRef();
     const refFile = useRef();
     const refImage = useRef();
     const refLink = useRef();
@@ -64,6 +65,14 @@ function ChatRoom() {
             }
         }
     }, [isOnImage]);
+
+    useEffect(() => {
+        if (chatBody) {
+            chatBody.current.scrollTo({
+                top: chatBody.current.scrollHeight,
+            });
+        }
+    }, [chatBody]);
 
     const LinkPreviewer = ({ loading, preview }) => {
         return (
@@ -185,6 +194,7 @@ function ChatRoom() {
                             </div>
                             <div className={`${cx('body')} flex-1`}>
                                 <div
+                                    ref={chatBody}
                                     className={`overflow-auto h-100 p-3 ${cx(
                                         'container',
                                     )}`}

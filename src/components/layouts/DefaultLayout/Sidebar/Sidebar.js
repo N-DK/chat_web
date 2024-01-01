@@ -20,12 +20,20 @@ function Sidebar() {
                             MESSENGER
                         </h4>
                         <div className="d-flex align-items-center">
-                            <button className=" bg-transparent rounded-circle icon__border_circle square_40 me-2">
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalAddFriend"
+                                className=" bg-transparent rounded-circle icon__border_circle square_40 me-2"
+                            >
                                 <i className="fs-6">
                                     <FontAwesomeIcon icon={faUserPlus} />
                                 </i>
                             </button>
-                            <button className=" bg-transparent rounded-circle icon__border_circle square_40">
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCreateGroup"
+                                className=" bg-transparent rounded-circle icon__border_circle square_40"
+                            >
                                 <i className={`fs-6 ${cx('plus')}`}>
                                     <FontAwesomeIcon icon={faUserGroup} />
                                 </i>

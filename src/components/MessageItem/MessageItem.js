@@ -60,7 +60,7 @@ function MessageItem({ host, content, handleReply, mess }) {
                                     tabIndex={-1}
                                     {...attr}
                                 >
-                                    <div className="bg-second rounded-5 list-unstyled d-flex p-2 align-items-center">
+                                    <div className="bg-second rounded-5 list-unstyled d-flex p-3 pt-2 pb-2 align-items-center">
                                         {emojis.map((emo, index) => (
                                             <li
                                                 onClick={() => handleReact(emo)}

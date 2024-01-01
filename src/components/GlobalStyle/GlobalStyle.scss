@@ -158,6 +158,10 @@ body {
     font-size: 13px;
 }
 
+input {
+    outline: none;
+}
+
 img {
     object-fit: contain;
     object-position: center;
@@ -173,4 +177,12 @@ img {
 
 .custom-tooltip .tippy-arrow {
     color: black;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
 }

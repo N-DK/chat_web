@@ -1,3 +1,38 @@
 .wrapper {
     height: 100vh;
 }
+
+input {
+    &::-webkit-input-placeholder {
+        color: var(--iq-text-second);
+    }
+}
+
+.find__phone-number {
+    input {
+        color: var(--iq-white);
+        caret-color: var(--iq-primary);
+        transition: 0.3s;
+        border: 0;
+        border-bottom: 1px solid #252b3a;
+        &:focus {
+            border-color: var(--iq-primary) !important;
+        }
+    }
+}
+
+.list__friend {
+    overflow: overlay;
+    max-height: 400px;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.members {
+    display: none;
+}
+
+.container {
+    background-color: var(--ip-second-bg) !important;
+}
