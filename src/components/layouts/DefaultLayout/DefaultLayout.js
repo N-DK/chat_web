@@ -11,6 +11,7 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import Profile from '~/components/Profile';
 
 const friends = [
     {
@@ -177,7 +178,7 @@ function DefaultLayout({ children }) {
                                     </label>
                                     <input
                                         placeholder="Enter group name"
-                                        className="flex-1 border-0 border-bottom pb-2 bg-transparent"
+                                        className="flex-1 pb-2 bg-transparent"
                                     />
                                 </div>
                                 <div className=" rounded-5 icon__border_circle position-relative">
@@ -343,8 +344,26 @@ function DefaultLayout({ children }) {
                                 type="button"
                                 className="border-0 rounded-2 p-2 pe-3 ps-3 text-white bg--primary"
                             >
-                                Search
+                                Create group
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade" id="modalProfile" tabIndex="-1">
+                <div
+                    className="modal-dialog modal-dialog-centered"
+                    role="document"
+                >
+                    <div
+                        className={`${cx(
+                            'container',
+                        )} modal-content text-white`}
+                    >
+                        <div className="modal-body">
+                            <div className="">
+                                <Profile host={false} />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,19 @@ import Messenger from '~/components/Messenger';
 
 const cx = classNames.bind(styles);
 
+const friends = [
+    {
+        id: 1,
+        name: 'Dang Khoa',
+        avatar: 'https://i.ytimg.com/vi/RF6PvRkSLjU/maxresdefault.jpg',
+    },
+    {
+        id: 2,
+        name: 'Kim Hung',
+        avatar: 'https://i.ytimg.com/vi/dCNdTe1wDLM/maxresdefault.jpg',
+    },
+];
+
 function Sidebar() {
     return (
         <div className={cx('wrapper')}>
@@ -52,13 +65,8 @@ function Sidebar() {
                     </div>
                 </div>
                 <div className={`mt-3 ${cx('container__message')}`}>
+                    <Messenger />
                     <Messenger active={true} />
-                    <Messenger />
-                    <Messenger />
-                    <Messenger />
-                    <Messenger />
-                    <Messenger />
-                    <Messenger />
                 </div>
             </div>
         </div>

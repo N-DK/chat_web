@@ -4,8 +4,11 @@ import classNames from 'classnames/bind';
 import {
     faBell,
     faCaretRight,
+    faChevronDown,
+    faChevronUp,
     faCircleInfo,
     faCircleUser,
+    faCircleXmark,
     faFaceSmile,
     faFile,
     faImage,
@@ -30,6 +33,8 @@ function ChatRoom() {
     const [isOnFile, setIsOnFile] = useState(false);
     const [isLink, setIsLink] = useState(false);
     const [isOnInfo, setIsOnInfo] = useState(true);
+    const [isOnSearch, setIsOnSearch] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
     const [reply, setReply] = useState();
     const chatBody = useRef();
     const refFile = useRef();
@@ -124,6 +129,9 @@ function ChatRoom() {
         setReply();
     };
 
+    const showSearch = () => setIsOnSearch(true);
+    const hideSearch = () => setIsOnSearch(false);
+
     return (
         <div className={`${cx('wrapper')}`}>
             <div>
@@ -190,6 +198,65 @@ function ChatRoom() {
                                             </li>
                                         </div>
                                     </div>
+                                    {isOnSearch && (
+                                        <div>
+                                            <div className="d-flex align-items-center mt-2">
+                                                <div
+                                                    className={`d-flex justify-content-center flex-1  w-100 ${cx(
+                                                        'search',
+                                                    )}`}
+                                                >
+                                                    <input
+                                                        value={searchValue}
+                                                        type="text"
+                                                        placeholder="Search..."
+                                                        className="flex-1 pt-1 pb-1"
+                                                        onChange={(e) =>
+                                                            setSearchValue(
+                                                                e.target.value,
+                                                            )
+                                                        }
+                                                    />
+                                                    <i className=" position-absolute top-50 translate-middle-y start-0 ms-3">
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                faMagnifyingGlass
+                                                            }
+                                                        />
+                                                    </i>
+                                                    {searchValue && (
+                                                        <i className="pointer position-absolute top-50 translate-middle-y end-0 me-2">
+                                                            <FontAwesomeIcon
+                                                                icon={
+                                                                    faCircleXmark
+                                                                }
+                                                            />
+                                                        </i>
+                                                    )}
+                                                </div>
+                                                <button className=" bg-transparent rounded-circle icon__border_circle square_32 ms-2">
+                                                    <i className="fs-6">
+                                                        <FontAwesomeIcon
+                                                            icon={faChevronUp}
+                                                        />
+                                                    </i>
+                                                </button>
+                                                <button className=" bg-transparent rounded-circle icon__border_circle square_32 ms-2">
+                                                    <i className="fs-6">
+                                                        <FontAwesomeIcon
+                                                            icon={faChevronDown}
+                                                        />
+                                                    </i>
+                                                </button>
+                                                <button
+                                                    onClick={hideSearch}
+                                                    className="icon__border_circle text-white bg-second rounded-5 p-2 pt-1 pb-1 ms-2"
+                                                >
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className={`${cx('body')} flex-1`}>
@@ -385,7 +452,11 @@ function ChatRoom() {
                                     <span>Active now</span>
                                     <div className="d-flex align-items-center justify-content-center mt-3">
                                         <div className="d-flex align-items-center flex-column">
-                                            <button className="mb-1 border-0 rounded-circle square_36 text-white bg-second d-flex align-items-center justify-content-center">
+                                            <button
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalProfile"
+                                                className="mb-1 border-0 rounded-circle square_36 text-white bg-second d-flex align-items-center justify-content-center"
+                                            >
                                                 <i className="fs-5">
                                                     <FontAwesomeIcon
                                                         icon={faCircleUser}
@@ -405,7 +476,14 @@ function ChatRoom() {
                                             <span>Mute</span>
                                         </div>
                                         <div className="d-flex align-items-center flex-column">
-                                            <button className="mb-1 border-0 rounded-circle square_36 text-white bg-second d-flex align-items-center justify-content-center">
+                                            <button
+                                                onClick={
+                                                    isOnSearch
+                                                        ? hideSearch
+                                                        : showSearch
+                                                }
+                                                className="mb-1 border-0 rounded-circle square_36 text-white bg-second d-flex align-items-center justify-content-center"
+                                            >
                                                 <i className="fs-5">
                                                     <FontAwesomeIcon
                                                         icon={faMagnifyingGlass}
