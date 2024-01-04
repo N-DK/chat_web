@@ -21,9 +21,9 @@ const emojis = [
     'https://static.xx.fbcdn.net/images/emoji.php/v9/tf/1.5/32/1f44d.png',
 ];
 
-function MessageItem({ host, content, handleReply, mess }) {
+function MessageItem({ host, content, handleReply, mess, _emoji }) {
     const [visible, setVisible] = useState(false);
-    const [emoji, setEmoji] = useState();
+    const [emoji, setEmoji] = useState(_emoji);
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
 

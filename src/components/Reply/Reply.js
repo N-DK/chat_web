@@ -20,22 +20,24 @@ function Reply({ data }) {
     };
 
     useEffect(() => {
-        if (data.content.includes('.doc')) {
-            setComponent(
-                <i className="fs-3">
-                    <FontAwesomeIcon icon={faFile} />
-                </i>,
-            );
-        } else if (data.content.includes('.jpg')) {
-            setComponent(
-                <figure className="square_55 mb-0">
-                    <img
-                        src={data.content}
-                        alt=""
-                        className="w-100 h-100 rounded-2"
-                    />
-                </figure>,
-            );
+        if (data.content) {
+            if (data.content.includes('.doc')) {
+                setComponent(
+                    <i className="fs-3">
+                        <FontAwesomeIcon icon={faFile} />
+                    </i>,
+                );
+            } else if (data.content.includes('.jpg')) {
+                setComponent(
+                    <figure className="square_55 mb-0">
+                        <img
+                            src={data.content}
+                            alt=""
+                            className="w-100 h-100 rounded-2"
+                        />
+                    </figure>,
+                );
+            }
         }
     }, [data]);
 
@@ -52,7 +54,7 @@ function Reply({ data }) {
                         <div className=" overflow-hidden">
                             <h5 className="mb-1 fs-6">{data.user}</h5>
                             <span className={`fs-13 ${cx('message')}`}>
-                                {convertContent(data.content)}
+                                {data.content && convertContent(data.content)}
                             </span>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ import Reply from '../Reply';
 
 const cx = classNames.bind(styles);
 
-function Message({ host, content, received, seen, handleReply, reply }) {
+function Message({ host, handleReply, data }) {
     return (
         <div className={cx('wrapper')}>
             <div className="d-flex align-items-start">
@@ -28,22 +28,22 @@ function Message({ host, content, received, seen, handleReply, reply }) {
                             host ? 'align-items-end' : ''
                         }`}
                     >
-                        {content.map((mess, index) => {
+                        {data.content.map((item, index) => {
                             let Component;
-                            if (mess.includes('.jpg')) {
+                            if (item.message.includes('.jpg')) {
                                 Component = (
                                     <figure
                                         key={index}
                                         className=" rounded-2 overflow-hidden mb-2"
                                     >
                                         <img
-                                            src={mess}
+                                            src={item.message}
                                             alt=""
                                             className="w-100 h-100"
                                         />
                                     </figure>
                                 );
-                            } else if (mess.includes('.doc')) {
+                            } else if (item.message.includes('.doc')) {
                                 Component = (
                                     <div
                                         key={index}
@@ -76,8 +76,10 @@ function Message({ host, content, received, seen, handleReply, reply }) {
                                             'content',
                                         )}`}
                                     >
-                                        {reply && <Reply data={reply} />}
-                                        {mess}
+                                        {data.reply.content && (
+                                            <Reply data={data.reply} />
+                                        )}
+                                        {item.message}
                                         <p
                                             className={`mb-0 mt-2 ${cx(
                                                 'time',
@@ -94,11 +96,12 @@ function Message({ host, content, received, seen, handleReply, reply }) {
                                     host={host}
                                     handleReply={handleReply}
                                     content={Component}
-                                    mess={mess}
+                                    mess={item.message}
+                                    _emoji={item.react}
                                 />
                             );
                         })}
-                        {seen && (
+                        {data.status && (
                             <div
                                 className={`${cx(
                                     'state__message',

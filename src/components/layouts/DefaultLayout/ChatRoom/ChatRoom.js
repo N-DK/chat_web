@@ -28,6 +28,53 @@ import LinkPreview from '@ashwamegh/react-link-preview';
 
 const cx = classNames.bind(styles);
 
+// Default
+// User logged in
+const user = {
+    id: 1,
+};
+
+// Example
+const _data = [
+    {
+        content: [
+            {
+                message: 'hi',
+                react: 'https://static.xx.fbcdn.net/images/emoji.php/v9/tf9/1.5/32/2764.png',
+            },
+            {
+                message: "What's your name",
+                react: '',
+            },
+        ],
+        reply: {},
+        user_id: 2,
+        status: false,
+        createDate: new Date(),
+    },
+    {
+        content: [
+            {
+                message: 'Hello',
+                react: 'https://static.xx.fbcdn.net/images/emoji.php/v9/tf9/1.5/32/2764.png',
+            },
+            {
+                message: "My name's Khoa",
+                react: '',
+            },
+            ,
+            {
+                message: 'Nice too meet you',
+                react: '',
+            },
+        ],
+        reply: {},
+        user_id: 1,
+        status: true,
+        createDate: new Date(),
+    },
+];
+
 function ChatRoom() {
     const [isOnImage, setIsOnImage] = useState(false);
     const [isOnFile, setIsOnFile] = useState(false);
@@ -35,11 +82,42 @@ function ChatRoom() {
     const [isOnInfo, setIsOnInfo] = useState(true);
     const [isOnSearch, setIsOnSearch] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [message, setMessage] = useState('');
+    const [data, setData] = useState(_data);
     const [reply, setReply] = useState();
     const chatBody = useRef();
     const refFile = useRef();
     const refImage = useRef();
     const refLink = useRef();
+
+    const handleSendMessage = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setData((prev) => {
+                const data_temp = [...prev];
+                data_temp[data_temp.length - 1].status = false;
+                return [
+                    ...data_temp,
+                    {
+                        content: [
+                            {
+                                message,
+                                react: '',
+                            },
+                        ],
+                        reply: reply ? reply : {},
+                        user_id: user.id,
+                        status: true,
+                        createDate: new Date(),
+                    },
+                ];
+            });
+
+            setMessage('');
+            e.currentTarget.innerText = '';
+            handleCancelReply();
+        }
+    };
 
     useEffect(() => {
         if (refFile.current) {
@@ -77,7 +155,7 @@ function ChatRoom() {
                 top: chatBody.current.scrollHeight,
             });
         }
-    }, [chatBody]);
+    }, [chatBody, data]);
 
     const LinkPreviewer = ({ loading, preview }) => {
         return (
@@ -225,7 +303,14 @@ function ChatRoom() {
                                                         />
                                                     </i>
                                                     {searchValue && (
-                                                        <i className="pointer position-absolute top-50 translate-middle-y end-0 me-2">
+                                                        <i
+                                                            onClick={() =>
+                                                                setSearchValue(
+                                                                    '',
+                                                                )
+                                                            }
+                                                            className="pointer position-absolute top-50 translate-middle-y end-0 me-2"
+                                                        >
                                                             <FontAwesomeIcon
                                                                 icon={
                                                                     faCircleXmark
@@ -266,80 +351,30 @@ function ChatRoom() {
                                         'container',
                                     )}`}
                                 >
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['hi', "What's your name"]}
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={[
-                                            'Hello',
-                                            "My name's Khoa",
-                                            'Nice too meet you',
-                                        ]}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['Oke']}
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['Bye']}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['Bye', 'See then']}
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['Oke']}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={[
-                                            'https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg',
-                                        ]}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['lesson_1.docx']}
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['My name is Khoa']}
-                                        reply={{
-                                            user: 'Dang Khoa',
-                                            content: "What's your name",
-                                        }}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['How do you feel?']}
-                                        reply={{
-                                            user: 'Dang Khoa',
-                                            content:
-                                                'https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg',
-                                        }}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['How do you feel?']}
-                                        reply={{
-                                            user: 'Dang Khoa',
-                                            content: 'lesson_1.docx',
-                                        }}
-                                        host
-                                    />
-                                    <Message
-                                        handleReply={handleReply}
-                                        content={['Oke']}
-                                    />
+                                    <div className="d-flex justify-content-center mb-5 mt-4 pb-3 flex-column align-items-center">
+                                        <figure
+                                            className={`${cx(
+                                                'avatar',
+                                            )} mb-0 square_80`}
+                                        >
+                                            <img
+                                                src="https://res.cloudinary.com/dmvyx3gwr/image/upload/v1703338394/ndk_music/avatar/NDK.jpg"
+                                                alt=""
+                                                className="w-100 rounded-circle overflow-hidden h-100"
+                                            />
+                                        </figure>
+                                        <h5 className="mt-3 d-inline-block text-white">
+                                            Đăng Khoa
+                                        </h5>
+                                    </div>
+                                    {data.map((message, index) => (
+                                        <Message
+                                            key={index}
+                                            host={message.user_id === user.id}
+                                            handleReply={handleReply}
+                                            data={message}
+                                        />
+                                    ))}
                                 </div>
                             </div>
                             <div className={`${cx('footer')}`}>
@@ -405,6 +440,16 @@ function ChatRoom() {
                                                     )}`}
                                                     type="text"
                                                     placeholder="Enter message..."
+                                                    suppressContentEditableWarning
+                                                    onInput={(e) =>
+                                                        setMessage(
+                                                            e.currentTarget
+                                                                .innerText,
+                                                        )
+                                                    }
+                                                    onKeyDown={(e) =>
+                                                        handleSendMessage(e)
+                                                    }
                                                 ></div>
                                                 <button className="border-0 bg-transparent text--primary position-absolute end-0 me-2 top-50 translate-middle-y">
                                                     <i className="fs-5">

@@ -111,6 +111,14 @@ body {
     color: #494f5a;
 }
 
+.border_bottom {
+    border-bottom: 1px solid #252b3a;
+}
+
+.border_end {
+    border-right: 1px solid #252b3a;
+}
+
 .square_20 {
     width: 20px;
     height: 20px;
@@ -156,6 +164,18 @@ body {
 
 .fs-13 {
     font-size: 13px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.is_underline {
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 input {

@@ -13,9 +13,13 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <DefaultLayout>
+                                    route.layout === null ? (
                                         <Page />
-                                    </DefaultLayout>
+                                    ) : (
+                                        <DefaultLayout>
+                                            <Page />
+                                        </DefaultLayout>
+                                    )
                                 }
                             />
                         );
